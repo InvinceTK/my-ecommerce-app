@@ -9,7 +9,7 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import DeleteProduct from "../../_actions/deleteProduct";
 import ToggleActive from "../../_actions/toggleActive";
-import { useRouter } from "next/navigation";
+
 
 
 export default function TableMenu({id, isActive}) {
