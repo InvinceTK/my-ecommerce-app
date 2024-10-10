@@ -1,5 +1,5 @@
 "use server"
-import { NextApiRequest, NextApiResponse } from 'next';
+
 import prisma from '../../../../db/db';
 import { NextResponse } from 'next/server';
 

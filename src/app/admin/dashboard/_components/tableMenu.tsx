@@ -15,9 +15,7 @@ import { useRouter } from "next/navigation";
 export default function TableMenu({id, isActive}) {
   const router = useRouter()
 
-  const handleEditClick = () => {
-    router.push(`/admin/dashboard/${id}`); // Navigate to edit page
-  };
+
 
   return (
     <DropdownMenu>

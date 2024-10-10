@@ -1,4 +1,4 @@
-import { getSession, login} from "@/lib/auth";
+import {  login} from "@/lib/auth";
 
 
 export default async function AdminLogin() {

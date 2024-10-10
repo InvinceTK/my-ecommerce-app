@@ -18,7 +18,7 @@ export default function CarouselContainer({
   products,
   queryPerformed,
 }: {
-  products: any;
+  products: Product[];
   queryPerformed: string;
 }) {
   return (
