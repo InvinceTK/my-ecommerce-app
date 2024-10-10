@@ -8,7 +8,17 @@ import bcrypt from "bcryptjs"
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload) {
+type Payload = {
+  authInfo: AuthInfo;
+  expires: Date;
+};
+
+type AuthInfo = {
+  email: string | null;
+  password: string | null;
+};
+
+export async function encrypt(payload : Payload): Promise<string> {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -20,7 +30,10 @@ export async function decrypt(input: string) {
   const { payload } = await jwtVerify(input, key, {
     algorithms: ["HS256"],
   });
-  return payload;
+  return {
+    authInfo: payload.authInfo as AuthInfo,
+    expires: new Date(payload.expires as string), // Ensure expires is a Date object
+  };
 }
 
 export async function login(formData: FormData) {
@@ -28,14 +41,19 @@ export async function login(formData: FormData) {
   const hashedPassword = process.env.HASHED_PASSWORD
 
   const authInfo = {
-    email: formData.get("email"),
-    password: formData.get("password"),
+    email: formData.get("email") as string,
+    password: formData.get("password") as string
   };
 
   
   const { email, password } = authInfo;
 
-  const isMatch = bcrypt.compare(password, hashedPassword)
+  if (!email || !password) {
+    console.log("Missing email or password");
+    return;
+  }
+
+  const isMatch = await bcrypt.compare(password, hashedPassword as string)
   if (isMatch && email == adminEmail) {
     const expires = new Date(Date.now() + 10 * 60 * 1000);
     const session = await encrypt({ authInfo, expires });
@@ -47,9 +65,7 @@ export async function login(formData: FormData) {
   }
 }
 
-export async function logout() {
-  cookies().set("session", "", { expires: new Date(0) });
-}
+
 
 export async function getSession() {
   const session = cookies().get("session")?.value;
@@ -69,6 +85,6 @@ export async function updateSession(request: NextRequest) {
     name: "session",
     value: await encrypt(parsed),
     httpOnly: true,
-    expires: parsed.expires,
+    expires: parsed.expires as Date,
   });
 }

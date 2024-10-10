@@ -6,10 +6,18 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import TableMenu from "./tableMenu.tsx";
-import { Check, OctagonX } from "lucide-react";
 
-export default function ProductTable({ products }) {
+import { Check, OctagonX } from "lucide-react";
+import TableMenu from "./tableMenu";
+
+type Product = {
+  id : string,
+  isActive: boolean,
+  name: string,
+  price: number,
+  stock: number
+}
+export default function ProductTable({ products } : {products : Product[]}) {
   return (
     <Table>
       <TableHeader>

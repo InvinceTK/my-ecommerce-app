@@ -6,7 +6,8 @@ import { useEffect, useState } from "react";
 interface Product {
   id: string;
   name: string;
-  imagePath: string; // The filename or path stored in the database
+  imagePath: string;
+  price: number // The filename or path stored in the database
 }
 
 const Products = () => {

@@ -10,10 +10,12 @@ export default async function purchasePage({params} : {params : {id : string}}){
             id : params.id
         }
     })
-    const {price,id} = data
+    if(data){
+        const {price,id} : {price : number; id : string} = data
 
-    return(
-        <PurchasePageContents id = {id} amount = {price}/>
-    )
-    
+        return(
+            <PurchasePageContents id = {id} amount = {price}/>
+        )
+    }
+     
 }

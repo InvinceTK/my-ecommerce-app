@@ -12,7 +12,7 @@ import ToggleActive from "../../_actions/toggleActive";
 
 
 
-export default function TableMenu({id, isActive}) {
+export default function TableMenu({id, isActive} : {id : string; isActive: boolean}) {
   
 
 

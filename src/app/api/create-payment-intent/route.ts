@@ -29,10 +29,20 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Internal Error:", error);
 
-    // Return an error response if something goes wrong
-    return NextResponse.json(
-      { error: `Internal server error: ${error.message}` },
-      { status: 500 }
-    );
+    // Narrow the error type safely
+    if (error instanceof Error) {
+      // Access the message safely if it's an instance of Error
+      return NextResponse.json(
+        { error: `Internal server error: ${error.message}` },
+        { status: 500 }
+      );
+    } else {
+      // Handle unknown errors (non-Error objects)
+      return NextResponse.json(
+        { error: "An unknown error occurred" },
+        { status: 500 }
+      );
+    }
   }
 }
+
