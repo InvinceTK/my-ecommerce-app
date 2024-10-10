@@ -1,8 +1,8 @@
-import { getSession, login, logout } from "@/lib/auth";
-import { redirect } from "next/navigation";
+import { getSession, login} from "@/lib/auth";
+
 
 export default async function AdminLogin() {
-  const session = await getSession();
+  
 
   return (
     <>
@@ -39,17 +39,7 @@ export default async function AdminLogin() {
         </div>
       </form>
 
-      {/* <form
-          action={async () => {
-            "use server";
-            await logout();
-            redirect("/login");
-          }}
-        >
-          <button className="border-black border-2 " type="submit">
-            logout
-          </button>
-        </form> */}
+     
     </>
   );
 }

@@ -29,7 +29,7 @@ export default function CheckoutPage({ amount, id}: { amount: number ; id : stri
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
-  }, [amount]);
+  }, [amount,id]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -51,7 +51,7 @@ export default function CheckoutPage({ amount, id}: { amount: number ; id : stri
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://www.localhost:3000/payment-success?amount=${amount}`,
+        return_url: `${process.env.NEXT_PUBLIC_RETURN_URL}/payment-success?amount=${amount}`,
       },
     });
 

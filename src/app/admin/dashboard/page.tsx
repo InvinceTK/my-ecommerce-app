@@ -1,5 +1,4 @@
 import prisma from "../../../../db/db";
-import PageHeader from "../_components/pageHeader";
 import ProductTable from "./_components/ProductTable";
 
 

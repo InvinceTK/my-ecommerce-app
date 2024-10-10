@@ -4,7 +4,7 @@ import AddProduct from "../_actions/addProduct";
 import SubmitButton from "./submitButton";
 
 export default function SubmitForm() {
-  const { pending } = useFormStatus();
+  
 
   return (
     <form

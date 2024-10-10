@@ -8,6 +8,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
+interface Product {
+  id: string; // Or number, depending on your data
+  name: string;
+  imagePath: string;
+}
+
 export default function CarouselContainer({
   products,
   queryPerformed,
@@ -20,7 +26,7 @@ export default function CarouselContainer({
       <h1 className="">{queryPerformed}</h1>
       <Carousel className="w-4/5">
         <CarouselContent>
-          {products.map((product: any) => (
+          {products.map((product : Product) => (
             <CarouselItem key={product.id} className="sm:basis-full md:basis-1/2">
               <div className="relative h-[300px] w-full">
                 <Image

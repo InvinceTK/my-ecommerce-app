@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import PageHeaderClient from "./_components/pageHeaderClient";
 
 
 
