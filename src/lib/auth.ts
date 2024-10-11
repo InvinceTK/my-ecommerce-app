@@ -48,8 +48,8 @@ export async function login(formData: FormData) {
  
 
   
-  const { email, password } = authInfo;
-
+  let { email, password } = authInfo;
+  [password,email] = [password.toLowerCase(), email.toLowerCase()]
 
   async function checkPasswordMatch(password : string) {
     try {
