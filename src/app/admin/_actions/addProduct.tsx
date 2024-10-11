@@ -78,7 +78,10 @@ export default async function AddProduct(formData: FormData) {
     const fileBuffer = await filePath.arrayBuffer();
     const imageBuffer = await imagePath.arrayBuffer();
 
-    const storage = new Storage();
+    const storage = new Storage({
+      projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
+      credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS as string)
+    });
 
     await storage
       .bucket("ecommerce-bucket-wds")
