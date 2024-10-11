@@ -83,10 +83,16 @@ export default async function AddProduct(formData: FormData) {
     const fileBuffer = await filePath.arrayBuffer();
     const imageBuffer = await imagePath.arrayBuffer();
 
-
+    const base64EncodedKey = process.env.GOOGLE_APPLICATION_CREDENTIALS
+    if (!base64EncodedKey) {
+      throw new Error('The GOOGLE_APPLICATION_CREDENTIALS environment variable is not set.');
+    }
+    const decodedKey = Buffer.from(base64EncodedKey, 'base64').toString('utf-8');
+    const serviceAccountKey = JSON.parse(decodedKey);
 
     const storage = new Storage({
       projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
+      credentials:serviceAccountKey
     });
 
     await storage
