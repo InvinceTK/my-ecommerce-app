@@ -19,7 +19,12 @@ export default async function AddProduct(formData: FormData) {
   function checkImageType(image: File) {
     if (image?.name) {
       const imageType = image.name.split(".").pop();
-      if (imageType === "png" || imageType === "jpg" || imageType === "jpeg" || imageType === "webp")
+      if (
+        imageType === "png" ||
+        imageType === "jpg" ||
+        imageType === "jpeg" ||
+        imageType === "webp"
+      )
         return true;
     }
     return false;
@@ -78,9 +83,10 @@ export default async function AddProduct(formData: FormData) {
     const fileBuffer = await filePath.arrayBuffer();
     const imageBuffer = await imagePath.arrayBuffer();
 
+
+
     const storage = new Storage({
       projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
-      credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS as string)
     });
 
     await storage
@@ -95,5 +101,5 @@ export default async function AddProduct(formData: FormData) {
   }
 
   revalidatePath("/admin/dashboard");
-  redirect("/admin/dashboard")
+  redirect("/admin/dashboard");
 }
