@@ -3,7 +3,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-import bcrypt from "bcryptjs"
+const bcrypt = require('bcryptjs');
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -45,15 +45,38 @@ export async function login(formData: FormData) {
     password: formData.get("password") as string
   };
 
+ 
+
   
   const { email, password } = authInfo;
 
-  if (!email || !password) {
-    console.log("Missing email or password");
-    return;
+
+  async function checkPasswordMatch(password : string) {
+    try {
+      
+      const hash = await bcrypt.hash(password, 10);
+     
+  
+     
+      const isMatch = await bcrypt.compare(password, hash);
+      
+  
+      return isMatch; // Return the result of the comparison
+    } catch (error) {
+      console.error("Error during password hashing/comparison:", error);
+      throw error;
+    }
   }
 
-  const isMatch = await bcrypt.compare(password, hashedPassword as string)
+  const isMatch = await checkPasswordMatch(password)
+
+  if (!email || !password) {
+    console.log("Missing email or password");
+  
+  }
+
+  
+  console.log(isMatch)
   if (isMatch && email == adminEmail) {
     const expires = new Date(Date.now() + 10 * 60 * 1000);
     const session = await encrypt({ authInfo, expires });

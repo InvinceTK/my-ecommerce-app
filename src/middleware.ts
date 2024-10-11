@@ -29,7 +29,7 @@ export async function adminVerificationMiddleware(request: Request) {
 export async function middleware(request: NextRequest) {
     // Run the session update middleware
     const sessionUpdateResponse = await sessionUpdateMiddleware(request);
-    console.log(sessionUpdateResponse)
+    
     // If session update middleware returns a response, stop and return that response
    
   
