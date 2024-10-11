@@ -3,7 +3,7 @@ import { jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextRequest, NextResponse } from "next/server";
-const bcrypt = require('bcryptjs');
+import * as bcrypt from 'bcryptjs';
 
 const secretKey = "secret";
 const key = new TextEncoder().encode(secretKey);
@@ -38,7 +38,7 @@ export async function decrypt(input: string) {
 
 export async function login(formData: FormData) {
   const adminEmail = process.env.ADMIN_EMAIL
-  const hashedPassword = process.env.HASHED_PASSWORD
+
 
   const authInfo = {
     email: formData.get("email") as string,
